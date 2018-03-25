@@ -32,8 +32,17 @@ class DataController < ApplicationController
         @articles = Article.where("title LIKE ?", "%#{search_value}%")
     end
 
+    i = 0
     @articles.each do |article|
-        data.push([article.title])        
+        if i >= start
+            data.push([article.title])
+        end
+
+        i += 1
+
+        if i == (start + length)
+            break
+        end
     end
 
     ds = {
