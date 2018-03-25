@@ -26,14 +26,19 @@ class DataController < ApplicationController
 
     data = []
 
-    @articles = Article.all
+    if search_value == ""
+        @articles = Article.all
+    else
+        @articles = Article.where("title LIKE ?", "%#{search_value}%")
+    end
+
     @articles.each do |article|
         data.push([article.title])        
     end
 
     ds = {
         "draw": draw,
-        "recordsTotal": @articles.count,
+        "recordsTotal": Article.all.count,
         "recordsFiltered": @articles.count,
         "data": data
     }
