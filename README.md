@@ -44,7 +44,7 @@ sqlite3 db/development.sqlite3
 > select * from articles;
 > .quit
 
-vi app/views/data/index.html.erb      # implement ui
+vi app/views/welcome/index.html.erb      # implement ui
 vi app/controllers/data_controller.rb # implement server-side scripts
 
 ```

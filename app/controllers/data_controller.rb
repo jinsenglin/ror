@@ -24,15 +24,19 @@ class DataController < ApplicationController
         search_value = params[:search][:value]
     end
 
-    data = {
+    data = []
+
+    @articles = Article.all
+    @articles.each do |article|
+        data.push([article.title])        
+    end
+
+    ds = {
         "draw": draw,
-        "recordsTotal": 2,
-        "recordsFiltered": 2,
-        "data": [
-            ["Airi", "Satou", "Accountant", search_value, "28th Nov 08", "$162,700"],
-            ["Angelica", "Ramos", "Chief Executive Officer (CEO)", "London", "9th Oct 09", "$1,200,000"]
-        ]
+        "recordsTotal": @articles.count,
+        "recordsFiltered": @articles.count,
+        "data": data
     }
-    render :json => data
+    render :json => ds
   end
 end
